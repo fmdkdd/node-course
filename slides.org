@@ -144,14 +144,7 @@
 	 - Fortement adapté aux applications réseau
 	 - Approche dynamique
 
-	 #+begin_latex
-	 \begin{block}{}
-	 \begin{javascript}
-server.on('join', function(user) { join(user); });
-server.on('message', function(msg) { broadcast(msg) });
-server.on('leave', function(user) { leave(user); });\end{javascript}
-	 \end{block}
-	 #+end_latex
+	 #+Latex: \codeinput{js}{examples/event.js}{}
 
 *** Node \\ Serveur asynchrone
 	 - Entrées/sorties asynchrones (/epoll/, /kqueue/, ...)
@@ -223,7 +216,9 @@ server.on('leave', function(user) { leave(user); });\end{javascript}
 	 \begin{columns}
 	 \begin{column}{0.51\textwidth}
 	 \lstset{basicstyle=\ttfamily\scriptsize}
-	 \codeinput{js}{examples/canvas.js}{}
+	 \begin{block}{}
+	 \lstinputlisting[language=js, firstline=2, lastline=21, xleftmargin=-5pt]{examples/canvas.js}
+	 \end{block}
 	 \end{column}
 
     \begin{column}{0.5\textwidth}
