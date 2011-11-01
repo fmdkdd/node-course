@@ -63,19 +63,19 @@
 ## Code listings
 #+Latex_Header: \usepackage{listings}
 
-#+Latex_Header: \lstset{basicstyle=\ttfamily\small}
-#+Latex_Header: \lstset{tabsize=3, columns=fullflexible, keepspaces=true}
-#+Latex_Header: \lstset{breaklines=false, showstringspaces=false, xleftmargin=5pt}
-#+Latex_Header: \lstset{aboveskip=0pt, belowskip=0pt}
+#+Latex_Header: \lstdefinestyle{node}{
+#+Latex_Header: basicstyle=\ttfamily\small,
+#+Latex_Header: tabsize=3, columns=fullflexible, keepspaces=true,
+#+Latex_Header: breaklines=false, showstringspaces=false, xleftmargin=5pt,
+#+Latex_Header: aboveskip=0pt, belowskip=0pt,
+#+Latex_Header: keywordstyle=\color{Lime}\bfseries, stringstyle=\color{Grue}
+#+Latex_Header: }
+#+Latex_Header: \lstset{style=node}
 
-#+Latex_Header: \lstnewenvironment{javascript}
-#+Latex_Header: {\lstset{ language={C}, morekeywords={var, function}, keywordstyle=\color{Lime}\bfseries, stringstyle=\color{Grue} }}{}
+#+Latex_Header: \lstdefinelanguage{js}[ANSI]{C}{morekeywords={var, function}}
+#+Latex_Header: \lstdefinelanguage{coffeescript}[]{Ruby}{morekeywords={of}}
 
-#+Latex_Header: \lstnewenvironment{coffeescript}
-#+Latex_Header: {\lstset{ language={Ruby}, morekeywords={of}, stringstyle=\color{Grue} }}{}
-
-#+Latex_Header: \lstnewenvironment{shell}
-#+Latex_Header: {\lstset{ language={bash}, stringstyle=\color{Grue} }}{}
+#+Latex_Header: \newcommand{\codeinput}[3]{\begin{block}{#3}{\lstinputlisting[language=#1]{#2}}\end{block}}
 
 #+Bind: org-export-latex-custom-lang-environments ((js "javascript") (coffee "coffeescript") (shell "shell"))
 
@@ -170,56 +170,21 @@ server.on('leave', function(user) { leave(user); });\end{javascript}
 *** Node \\ Installation manuelle
 	 Dépôt officiel -> http://github.com/joyent/node/
 
-	 #+begin_latex
-	 \begin{block}{}
-	 \begin{shell}
-cd
-git clone http://github.com/joyent/node.git
-cd node
-git checkout v0.4.12
-./configure
-make
-sudo make install\end{shell}
-	 \end{block}
-	 #+end_latex
-
+	 #+Latex: \codeinput{bash}{examples/git-install.sh}{}
 	 #+Latex: \vfill
 
-Prérequis:
-    #+begin_latex
-	 \begin{block}{}
-	 \begin{shell}
-sudo apt-get install build-essential git\end{shell}
-	 \end{block}
-	 #+end_latex
+	 Prérequis:
+	 #+Latex: \codeinput{bash}{examples/git-deps.sh}{}
 
 *** Node \\ Exemples
 	 #+begin_latex
 	 \begin{overprint}
 
 	 \onslide<1>
-	 \begin{block}{Serveur écho}
-	 \begin{javascript}
-var net = require('net');
-
-var server = net.createServer(function (socket) {
-	socket.write("Echo server");
-	socket.pipe(socket);
-}).listen(1337);
-	 \end{javascript}
-	 \end{block}
+	 \codeinput{js}{examples/echo-server.js}{Serveur écho}
 
 	 \onslide<2>
-	 \begin{block}{Serveur http}
-	 \begin{javascript}
-var http = require('http');
-
-http.createServer(function (req, res) {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Hello World');
-}).listen(1337);
-	 \end{javascript}
-	 \end{block}
+	 \codeinput{js}{examples/echo-server.js}{Serveur HTTP}
 
 	 \end{overprint}
 	 #+end_latex
@@ -257,30 +222,8 @@ http.createServer(function (req, res) {
     #+Begin_latex
 	 \begin{columns}
 	 \begin{column}{0.51\textwidth}
-    \begin{block}{}
 	 \lstset{basicstyle=\ttfamily\scriptsize}
-	 \begin{javascript}
-var canvas =
-    document.querySelector('#canvas');
-var ctxt = canvas.getContext('2d');
-ctxt.fillStyle = 'hsl(40, 30%, 90%)';
-ctxt.fillRect(0, 0, 300, 300);
-
-for (var i=0; i < 100; ++i) {
-	ctxt.save();
-	ctxt.translate(Math.random()*250,
-                  Math.random()*250);
-	ctxt.fillStyle = 'hsla(' +
-          Math.random()*360 +
-          ', 50%, 50%, 0.8)';
-   ctxt.beginPath();
-	ctxt.arc(24, 24,
-	      12 + 12*Math.sin(i),
-         Math.PI*2, false);
-	ctxt.fill();
-	ctxt.restore();
-}\end{javascript}
-    \end{block}
+	 \codeinput{js}{examples/canvas.js}{}
 	 \end{column}
 
     \begin{column}{0.5\textwidth}
