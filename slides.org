@@ -106,9 +106,8 @@
 \begin{frame}{Introduction}
   \thispagestyle{empty}
   \begin{center}
-    \includegraphics[width=10cm]{img/node-logo.png}
-    \\
-    \includegraphics[width=4cm]{img/HTML5_Logo_512.png}
+    \includegraphics[width=6cm]{img/node-logo.png}
+    \includegraphics[width=2.5cm]{img/html5-logo.png}
   \end{center}
 \end{frame}
 #+END_latex
