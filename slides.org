@@ -1,0 +1,295 @@
+#+ -*- ispell-local-dictionary: "francais"; -*-
+#+Title: Node et technologies HTML5
+#+Author: Florent Marchand de Kerchove\\Merwan Achibet
+#+Email: fmdkdd@gmail.com
+#+Date: 9 octobre 2011
+#+Language: fr
+
+## Supplementary info.
+#+Beamer_Header_Extra: \institute{UFR sciences et techniques\\Université du Havre}
+
+## Beamer slideshow.
+#+LATEX_CMD: lualatex
+#+LaTeX_CLASS: beamer
+#+OPTIONS: toc:nil
+#+Beamer_frame_level: 3
+
+## Structure
+#+Latex_Header: \setbeamertemplate{navigation symbols}{}
+#+Latex_Header: \setbeamertemplate{title page}[plain]
+#+Latex_Header: \setbeamertemplate{footline}[frame number]
+
+## Styling
+#+Latex_Header: \setsansfont[Mapping=tex-text]{Georgia}
+#+Latex_Header: \setmonofont[Mapping=tex-text]{Ubuntu Mono}
+
+#+Latex_Header: \definecolor{Backdrop}{RGB}{53, 49, 41}
+#+Latex_Header: \definecolor{Foreground}{RGB}{238, 238, 238}
+#+Latex_Header: \definecolor{Ecogreen}{RGB}{139, 200, 75}
+#+Latex_Header: \definecolor{Lime}{RGB}{195, 204, 136}
+#+Latex_Header: \definecolor{Grue}{RGB}{185, 204, 197}
+
+#+Latex_Header: \definecolor{Tangerine}{RGB}{223, 135, 47}
+#+Latex_Header: \definecolor{Tinkerbell}{RGB}{220, 220, 204}
+#+Latex_Header: \definecolor{Liloo}{RGB}{161, 219, 219}
+#+Latex_Header: \definecolor{Waterose}{RGB}{204, 147, 147}
+
+#+Latex_Header: \usecolortheme[named=Backdrop]{structure}
+#+Latex_Header: \setbeamercolor{normal text}{fg=Foreground, bg=Backdrop}
+#+Latex_Header: \setbeamercolor{frametitle}{fg=Ecogreen, bg=Backdrop}
+#+Latex_Header: \setbeamerfont{title}{series=\bfseries}
+#+Latex_Header: \setbeamercolor{title}{fg=Ecogreen, bg=Backdrop}
+#+Latex_Header: \setbeamercolor{item}{fg=Lime}
+#+Latex_Header: \setbeamercolor{section in toc}{fg=Ecogreen}
+#+Latex_Header: \setbeamerfont{footline}{size=\small}
+
+#+Latex_Header: \setbeamertemplate{items}[circle]
+#+Latex_Header: \setbeamertemplate{itemize subitem}{--}
+#+Latex_Header: \setbeamertemplate{sections/subsections in toc}[circle]
+
+#+Latex_Header: \setbeamertemplate{blocks}[rounded][shadow=true]
+#+Latex_Header: \setbeamercolor{block title}{fg=Grue, bg=Backdrop!105}
+#+Latex_Header: \setbeamercolor{block body}{fg=Foreground, bg=Backdrop!95}
+
+#+Latex_Header: \setbeamercolor{button}{fg=Lime}
+#+Latex_Header: \setbeamerfont{button}{size=\normal}
+#+Latex_Header: \renewcommand{\insertgotosymbol}{$\blacktriangleright$  }
+
+#+Latex_Header: \hypersetup{colorlinks,linkcolor=, urlcolor=Lime}
+
+## Do not number title page frame.
+#+Bind: org-export-latex-title-command "\\thispagestyle{empty}\\maketitle"
+
+## Code listings
+#+Latex_Header: \usepackage{listings}
+
+#+Latex_Header: \lstset{basicstyle=\ttfamily\small}
+#+Latex_Header: \lstset{tabsize=3, columns=fullflexible, keepspaces=true}
+#+Latex_Header: \lstset{breaklines=false, showstringspaces=false, xleftmargin=5pt}
+#+Latex_Header: \lstset{aboveskip=0pt, belowskip=0pt}
+
+#+Latex_Header: \lstnewenvironment{javascript}
+#+Latex_Header: {\lstset{ language={C}, morekeywords={var, function}, keywordstyle=\color{Lime}\bfseries, stringstyle=\color{Grue} }}{}
+
+#+Latex_Header: \lstnewenvironment{coffeescript}
+#+Latex_Header: {\lstset{ language={Ruby}, morekeywords={of}, stringstyle=\color{Grue} }}{}
+
+#+Latex_Header: \lstnewenvironment{shell}
+#+Latex_Header: {\lstset{ language={bash}, stringstyle=\color{Grue} }}{}
+
+#+Bind: org-export-latex-custom-lang-environments ((js "javascript") (coffee "coffeescript") (shell "shell"))
+
+## Make fragile frame when using javascript environment.
+#+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(coffeescript\\|javascript\\|shell\\)}"
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Begin document
+
+## Org beamer inserts title frame automatically, reset
+## frame counter.
+#+Beamer: \setcounter{framenumber}{0}
+
+## Print outline when changing section.
+#+BEGIN_lateX
+\AtBeginSection[] {
+  \thispagestyle{empty}
+  \addtocounter{framenumber}{-1}
+  \begin{frame}<beamer>{}
+    \vspace{2.7em}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+#+END_lateX
+
+## Introduction frame.
+#+BEGIN_lateX
+\begin{frame}{Introduction}
+  \thispagestyle{empty}
+  \begin{center}
+    \includegraphics[width=10cm]{img/node-logo.png}
+    \\
+    \includegraphics[width=4cm]{img/HTML5_Logo_512.png}
+  \end{center}
+\end{frame}
+#+END_latex
+
+## Reset frame count after intro
+#+Begin_latex
+\setcounter{framenumber}{0}
+#+End_latex
+
+* Node et compagnie
+** Node
+*** Node \\ Description
+	 http://nodejs.org/
+
+	 #+Latex: \vfill
+
+	 Serveur :
+	 - évenementiel,
+	 - asynchrone,
+	 - en JavaScript.
+
+	 Intérêts :
+	 - Language identique client/serveur
+	 - Performance élevée (100 000+ connexions simultanées)
+	 - API réseau élémentaire
+	 - Riche librairie de modules
+
+	 Similaire à Twisted ou EventMachine
+
+*** Node \\ Serveur évenementiel
+	 Reçoit des évènements et y répond
+	 - Semblable au DOM et à jQuery
+	 - Fortement adapté aux applications réseau
+	 - Approche dynamique
+
+	 #+begin_latex
+	 \begin{block}{}
+	 \begin{javascript}
+server.on('join', function(user) { join(user); });
+server.on('message', function(msg) { broadcast(msg) });
+server.on('leave', function(user) { leave(user); });\end{javascript}
+	 \end{block}
+	 #+end_latex
+
+*** Node \\ Serveur asynchrone
+	 - Entrées/sorties asynchrones (/epoll/, /kqueue/, ...)
+	 - Le processus dort en attendant les évènements
+	 - Aucun /thread/, un seul processus (/fork/ possible)
+	 - Plus simple à programmer
+
+	 Inconvénient :
+	 - Éviter les appels bloquants trop long
+
+*** Node \\ Serveur en JavaScript
+	 - Utilise le moteur JavaScript V8 de Google (Ecma-262 édition 5)
+	 - Simplifie les échanges client-serveur
+	 - Partage de code possible
+
+*** Node \\ Installation manuelle
+	 Dépôt officiel -> http://github.com/joyent/node/
+
+	 #+begin_latex
+	 \begin{block}{}
+	 \begin{shell}
+cd
+git clone http://github.com/joyent/node.git
+cd node
+git checkout v0.4.12
+./configure
+make
+sudo make install\end{shell}
+	 \end{block}
+	 #+end_latex
+
+	 #+Latex: \vfill
+
+Prérequis:
+    #+begin_latex
+	 \begin{block}{}
+	 \begin{shell}
+sudo apt-get install build-essential git\end{shell}
+	 \end{block}
+	 #+end_latex
+
+*** Node \\ Exemples
+	 #+begin_latex
+	 \begin{overprint}
+
+	 \onslide<1>
+	 \begin{block}{Serveur écho}
+	 \begin{javascript}
+var net = require('net');
+
+var server = net.createServer(function (socket) {
+	socket.write("Echo server");
+	socket.pipe(socket);
+}).listen(1337);
+	 \end{javascript}
+	 \end{block}
+
+	 \onslide<2>
+	 \begin{block}{Serveur http}
+	 \begin{javascript}
+var http = require('http');
+
+http.createServer(function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.end('Hello World');
+}).listen(1337);
+	 \end{javascript}
+	 \end{block}
+
+	 \end{overprint}
+	 #+end_latex
+
+** Express
+	http://expressjs.com/
+
+** npm
+*** npm \\ Description
+	 http://npmjs.org/
+
+	 Node Package Manager
+
+
+*** Ressources et documentation
+
+
+* HTML5
+** Canvas HTML
+*** Canvas HTML \\ Description
+	 [[http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html][HTML Standard: the canvas element]]
+
+	 Élément <canvas> :
+	 - Permet de dessiner et d'animer librement sur une page web
+	 - Contextes 2d et 3d (WebGL)
+	 - API stable
+	 - Implémenté dans les navigateurs majeurs
+
+	 Alternative aux SVG plus performante :
+	 - Surface /bitmapped/ plutôt que vectorielle
+	 - Pas d'insertion dans le DOM
+	 - Accélération matérielle possible
+
+*** Canvas HTML \\ Exemple
+    #+Begin_latex
+	 \begin{columns}
+	 \begin{column}{0.51\textwidth}
+    \begin{block}{}
+	 \lstset{basicstyle=\ttfamily\scriptsize}
+	 \begin{javascript}
+var canvas =
+    document.querySelector('#canvas');
+var ctxt = canvas.getContext('2d');
+ctxt.fillStyle = 'hsl(40, 30%, 90%)';
+ctxt.fillRect(0, 0, 300, 300);
+
+for (var i=0; i < 100; ++i) {
+	ctxt.save();
+	ctxt.translate(Math.random()*250,
+                  Math.random()*250);
+	ctxt.fillStyle = 'hsla(' +
+          Math.random()*360 +
+          ', 50%, 50%, 0.8)';
+   ctxt.beginPath();
+	ctxt.arc(24, 24,
+	      12 + 12*Math.sin(i),
+         Math.PI*2, false);
+	ctxt.fill();
+	ctxt.restore();
+}\end{javascript}
+    \end{block}
+	 \end{column}
+
+    \begin{column}{0.5\textwidth}
+    \begin{center}
+    \includegraphics[width=\textwidth]{img/canvas-ex1.png}
+    \end{center}
+    \end{column}
+    \end{columns}
+    #+End_latex
+** WebSocket et Socket.IO
+
+*** Ressources et documentation
