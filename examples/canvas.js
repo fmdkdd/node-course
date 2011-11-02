@@ -1,6 +1,5 @@
 window.addEventListener('load', function() {
-	var canvas =
-		document.querySelector('#canvas');
+	var canvas = document.querySelector('#canvas');
 	var ctxt = canvas.getContext('2d');
 	ctxt.fillStyle = 'hsl(40, 30%, 90%)';
 	ctxt.fillRect(0, 0, 300, 300);

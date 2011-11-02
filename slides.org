@@ -73,14 +73,11 @@
 #+Latex_Header: \lstset{style=node}
 
 #+Latex_Header: \lstdefinelanguage{js}[ANSI]{C}{morekeywords={var, function}}
-#+Latex_Header: \lstdefinelanguage{coffeescript}[]{Ruby}{morekeywords={of}}
 
 #+Latex_Header: \newcommand{\codeinput}[3]{\begin{block}{#3}{\lstinputlisting[language=#1]{#2}}\end{block}}
 
-#+Bind: org-export-latex-custom-lang-environments ((js "javascript") (coffee "coffeescript") (shell "shell"))
-
-## Make fragile frame when using javascript environment.
-#+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(coffeescript\\|javascript\\|shell\\)}"
+## Make fragile frame when using lstlisting environment.
+#+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\)}"
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Begin document
@@ -169,17 +166,19 @@
 	 #+Latex: \codeinput{bash}{examples/git-deps.sh}{}
 
 *** Node \\ Exemples
-	 #+begin_latex
-	 \begin{overprint}
+	 #+Latex: \codeinput{js}{examples/echo-server.js}{Serveur écho}
 
-	 \onslide<1>
-	 \codeinput{js}{examples/echo-server.js}{Serveur écho}
+*** Node \\ Exemples
+	 #+Latex: \codeinput{js}{examples/http-server.js}{Serveur HTTP}
 
-	 \onslide<2>
-	 \codeinput{js}{examples/echo-server.js}{Serveur HTTP}
+	 #+Latex: \vfill
+	 #+Latex: \codeinput{bash}{examples/bench-http-server.sh}{}
 
-	 \end{overprint}
-	 #+end_latex
+*** Node \\ Exemples
+	 #+Latex: \codeinput{js}{examples/http-server-blocking.js}{Serveur HTTP bloquant}
+
+	 #+Latex: \vfill
+	 #+Latex: \codeinput{bash}{examples/bench-http-server.sh}{}
 
 ** Express
 	http://expressjs.com/
@@ -197,8 +196,6 @@
 * HTML5
 ** Canvas HTML
 *** Canvas HTML \\ Description
-	 [[http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html][HTML Standard: the canvas element]]
-
 	 Élément <canvas> :
 	 - Permet de dessiner et d'animer librement sur une page web
 	 - Contextes 2d et 3d (WebGL)
@@ -210,13 +207,29 @@
 	 - Pas d'insertion dans le DOM
 	 - Accélération matérielle possible
 
+*** Canvas HTML \\ Utilisation
+	 Documentation: http://developer.mozilla.org/en/HTML/Canvas
+	 #+Latex: \vfill
+
+	 #+begin_latex
+      \begin{block}{Élément HTML}
+      \lstinputlisting[language=html, firstline=9, lastline=11]{examples/canvas.html}
+      \end{block}
+	 #+end_latex
+
+	 #+begin_latex
+      \begin{block}{JavaScript}
+      \lstinputlisting[language=js, firstline=2, lastline=3]{examples/canvas.js}
+      \end{block}
+	 #+end_latex
+
 *** Canvas HTML \\ Exemple
     #+Begin_latex
 	 \begin{columns}
 	 \begin{column}{0.51\textwidth}
 	 \lstset{basicstyle=\ttfamily\scriptsize}
 	 \begin{block}{}
-	 \lstinputlisting[language=js, firstline=2, lastline=21, xleftmargin=-5pt]{examples/canvas.js}
+	 \lstinputlisting[language=js, firstline=4, lastline=20, xleftmargin=-5pt]{examples/canvas.js}
 	 \end{block}
 	 \end{column}
 
