@@ -1,0 +1,10 @@
+{
+	"name": "magic",
+	"version": "1.2.3",
+	"description": "Enhance the magic possibilities of node",
+	"author": "Merlin <merlin@camelot.co.uk>",
+	"dependencies": {
+		"knights-of-the-round": "2.x",
+		"joust": ">= 1.8.1"
+	}
+}

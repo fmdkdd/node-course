@@ -55,6 +55,8 @@
 #+Latex_Header: \setbeamerfont{button}{size=\normal}
 #+Latex_Header: \renewcommand{\insertgotosymbol}{$\blacktriangleright$  }
 
+#+Latex_Header: \setbeamercolor{alerted text}{fg=Lime}
+
 #+Latex_Header: \hypersetup{colorlinks,linkcolor=, urlcolor=Lime}
 
 ## Do not number title page frame.
@@ -77,7 +79,7 @@
 #+Latex_Header: \newcommand{\codeinput}[3]{\begin{block}{#3}{\lstinputlisting[language=#1]{#2}}\end{block}}
 
 ## Make fragile frame when using lstlisting environment.
-#+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\)}"
+#+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\|verbatim\\)}"
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Begin document
@@ -149,7 +151,7 @@
 	 - Plus simple à programmer
 
 	 Inconvénient :
-	 - Éviter les appels bloquants trop long
+	 - Éviter les appels bloquants trop longs
 
 *** Node \\ Serveur en JavaScript
 	 - Utilise le moteur JavaScript V8 de Google (Ecma-262 édition 5)
@@ -181,14 +183,116 @@
 	 #+Latex: \codeinput{bash}{examples/bench-http-server.sh}{}
 
 ** Express
-	http://expressjs.com/
+*** Express \\ Description
+	 http://expressjs.com/
+
+	 #+Latex: \vfill
+
+	 Fonctionnalités essentielles pour des serveurs web :
+	 - Routes et verbes HTTP
+	 - Authentification
+	 - Gestion de session
+	 - Support des templates HTML (Haml, Jade, ...)
+	 - Cache automatique
+	 - etc.
+
+*** Express \\ Exemples
+	 http://expressjs.com/guide.html#creating-a-server
+
+	 #+Latex: \vfill
+
+	 #+Latex: \codeinput{js}{examples/express-create.js}{Création d'un serveur}
+
+	 #+Latex: \vfill
+
+	 #+Latex: \codeinput{bash}{examples/express-create-test.sh}{}
+
+*** Express \\ Exemple
+	 http://expressjs.com/guide.html#routing
+
+	 Chemins basés sur des /regexps/
+
+	 #+begin_latex
+	 \begin{block}{Routes}
+	 \lstinputlisting[language=js, firstline=5, lastline=11]{examples/express-routing.js}
+	 \end{block}
+	 #+end_latex
+
+	 #+Latex: \vfill
+
+	 #+Latex: \codeinput{bash}{examples/express-routing-test.sh}{}
 
 ** npm
 *** npm \\ Description
 	 http://npmjs.org/
 
-	 Node Package Manager
+	 #+Latex: \vfill
 
+	 \alert{n}ode \alert{p}ackage \alert{m}anager
+
+	 - Installe et met à jour des modules pour node
+	 - Recherche de modules par description, mots-clés
+	 - Gère les dépendances automagiquement
+	 - Aide au développement de modules
+
+	 #+Latex: \vfill
+	 #+Latex: \codeinput{bash}{examples/npm-install.sh}{Installation}
+
+*** npm \\ Utilisation
+	 Installer un module
+	 #+begin_latex
+	 \begin{block}{}
+	 \lstinputlisting[language=js, firstline=1, lastline=1]{examples/npm-usage.sh}
+	 \end{block}
+	 #+end_latex
+
+	 Installation locale par défaut :
+	 #+begin_latex
+      \begin{block}{}
+      \begin{verbatim}
+ $ tree -dL 2 node_modules/
+ node_modules/
+ └── express
+     ├── bin
+     ├── lib
+     ├── node_modules
+     └── testing\end{verbatim}
+      \end{block}
+	 #+end_latex
+
+	 - Versions différentes pour chaque projet
+	 - Binaires disséminés
+
+*** npm \\ Utilisation
+	 À chaque paquet sa description en JSON :
+
+	 #+Latex: \codeinput{js}{examples/package.json}{package.json}
+
+*** npm \\ Utilisation
+	 Installer et mettre à jour toutes les dépendances du projet courant
+	 #+begin_latex
+	 \begin{block}{}
+	 \lstinputlisting[language=js, firstline=2, lastline=3]{examples/npm-usage.sh}
+	 \end{block}
+	 #+end_latex
+
+	 #+Latex: \vfill
+
+	 Charger le projet courant sur le \alert{NODE\_PATH}
+	 #+begin_latex
+	 \begin{block}{}
+	 \lstinputlisting[language=js, firstline=4, lastline=4]{examples/npm-usage.sh}
+	 \end{block}
+	 #+end_latex
+
+	 #+Latex: \vfill
+
+	 À vous la gloire !
+	 #+begin_latex
+	 \begin{block}{}
+	 \lstinputlisting[language=js, firstline=5, lastline=6]{examples/npm-usage.sh}
+	 \end{block}
+	 #+end_latex
 
 *** Ressources et documentation
 
