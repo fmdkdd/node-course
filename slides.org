@@ -360,4 +360,100 @@
     #+End_latex
 ** WebSocket et Socket.IO
 
+
+* Exercice
+** Présentation
+** Couleurs
+*** Couleurs \\ HSL
+    #+Begin_latex
+	 \begin{columns}
+	 \begin{column}{0.51\textwidth}
+    \includegraphics[width=6cm]{img/hsl.jpg}
+	 \end{column}
+
+    \begin{column}{0.5\textwidth}
+	 \begin{block}{HSL}
+	 - /H/ue (0 <= H < 360)
+	 - /S/aturation (%)
+	 - /L/uminance (%)
+	 \end{block}
+    \end{column}
+    \end{columns}
+
+	 \vfill
+
+	 \begin{block}{Dans notre application}
+	 - Chaque client a une teinte différente,
+	 - On fixe la saturation et la luminance.
+	 \end{block}
+	 #+End_latex
+
+*** Couleurs \\ Synchronisation
+    #+Begin_latex
+	 \begin{columns}
+	 \begin{column}{0.51\textwidth}
+	 \begin{block}{Côté serveur}
+    \lstinputlisting[language=javascript]{examples/donnees_serveur.html}
+	 \end{block}
+	 \end{column}
+
+    \begin{column}{0.5\textwidth}
+	 \begin{block}{Côté client}
+    \lstinputlisting[language=javascript]{examples/donnees_client.html}
+	 \end{block}
+    \end{column}
+    \end{columns}
+
+	 \vfill
+
+    \begin{block}{Connexion d'un nouveau client}
+	 - Le serveur choisit aléatoirement une teinte et la broadcast à tous
+      ses clients,
+	 - Les clients enregistrent ce nouvel utilisateur et sa teinte.
+    \end{block}
+
+    \begin{block}{Déconnexion d'un client}
+	 - Le serveur supprime la teinte et avertit ses clients.
+	 - Les clients suppriment localement la teinte.
+    \end{block}
+	 #+end_latex
+
+** Tracé
+*** Tracé \\ Segment par segment
+    #+Begin_latex
+    \includegraphics[width=6cm]{img/line.png}
+    \includegraphics[width=6cm]{img/line2.png}
+
+	 \begin{block}{Comment communiquer le tracé d'une ligne ?}
+	 - Une ligne = un ensemble de petits segments,
+	 - Plus les segments sont petits, plus la ligne est fluide,
+	 - Certains réglages du canvas (lineCap, lineJoin) permettent
+      d'adoucir les traits,
+	 - On transmet les segments un à un.
+	 \end{block}
+	 #+End_latex
+
+*** Tracé \\ Synchronisation
+    #+Begin_latex
+	 \begin{block}{Côté client local}
+	 - Surveille le clic et les déplacements de la souris,
+	 - A chaque événement *mousemove*, enregistrement de la position du curseur,
+	 - Position précédente -> position actuelle = segment,
+	 - Dessin sur le canvas local,
+	 - Transmission des deux positions au serveur.
+	 \end{block}
+
+	 \begin{block}{Côté serveur}
+	 - Broadcast des positions à tous les autres clients.
+	 \end{block}
+
+	 \begin{block}{Côté client distant}
+	 - Reçoit les deux extrémités du segment et l'identifiant du
+    dessinateur,
+	 - Détermine la teinte du trait en fonction des données
+    enregistrées plus tôt,
+	 - Dessin sur le cancas.
+	 \end{block}
+	 #+End_latex
+
 *** Ressources et documentation
