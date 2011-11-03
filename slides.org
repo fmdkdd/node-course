@@ -77,6 +77,7 @@
 #+Latex_Header: \lstdefinelanguage{js}[ANSI]{C}{morekeywords={var, function}}
 
 #+Latex_Header: \newcommand{\codeinput}[3]{\begin{block}{#3}{\lstinputlisting[language=#1]{#2}}\end{block}}
+#+Latex_Header: \newcommand{\code}[1]{\textcolor{Grue}{\lstinline{#1}}}
 
 ## Make fragile frame when using lstlisting environment.
 #+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\|verbatim\\)}"
@@ -145,6 +146,7 @@
 	 #+Latex: \codeinput{js}{examples/event.js}{}
 
 *** Node \\ Serveur asynchrone
+	 Approche non-bloquante :
 	 - Entrées/sorties asynchrones (/epoll/, /kqueue/, ...)
 	 - Le processus dort en attendant les évènements
 	 - Aucun /thread/, un seul processus (/fork/ possible)
@@ -154,12 +156,16 @@
 	 - Éviter les appels bloquants trop longs
 
 *** Node \\ Serveur en JavaScript
-	 - Utilise le moteur JavaScript V8 de Google (Ecma-262 édition 5)
+	 Utilise le moteur JavaScript V8 de Google (Ecma-262 édition 5)
+
+	 Avantages du JavaScript côté serveur :
+	 - Adapté au modèle évenementielle
+	 - Fonctionnalités asynchrones incluses
 	 - Simplifie les échanges client-serveur
 	 - Partage de code possible
 
 *** Node \\ Installation manuelle
-	 Dépôt officiel -> http://github.com/joyent/node/
+	 Dépôt officiel : http://github.com/joyent/node/
 
 	 #+Latex: \codeinput{bash}{examples/git-install.sh}{}
 	 #+Latex: \vfill
@@ -197,10 +203,6 @@
 	 - etc.
 
 *** Express \\ Exemples
-	 http://expressjs.com/guide.html#creating-a-server
-
-	 #+Latex: \vfill
-
 	 #+Latex: \codeinput{js}{examples/express-create.js}{Création d'un serveur}
 
 	 #+Latex: \vfill
@@ -208,8 +210,6 @@
 	 #+Latex: \codeinput{bash}{examples/express-create-test.sh}{}
 
 *** Express \\ Exemple
-	 http://expressjs.com/guide.html#routing
-
 	 Chemins basés sur des /regexps/
 
 	 #+begin_latex
@@ -278,7 +278,7 @@
 
 	 #+Latex: \vfill
 
-	 Charger le projet courant sur le \alert{NODE\_PATH}
+	 Charger le projet courant sur le \code{NODE\_PATH}
 	 #+begin_latex
 	 \begin{block}{}
 	 \lstinputlisting[language=js, firstline=4, lastline=4]{examples/npm-usage.sh}
@@ -294,8 +294,22 @@
 	 \end{block}
 	 #+end_latex
 
-*** Ressources et documentation
+*** Node et compagnie \\ Ressources et documentation
 
+	 Node :
+	 - http://nodejs.org/
+	 - http://github.com/joyent/node/wiki/
+	 - http://nodejs.org/docs/v0.4.12/api/
+	 - http://howtonode.org/
+
+	 Express :
+	 - http://expressjs.com/
+	 - http://expressjs.com/guide.html
+	 - http://github.com/visionmedia/express/wiki
+
+	 npm :
+	 - http://npmjs.org/
+	 - \code{`man npm`}
 
 * HTML5
 ** Canvas HTML
