@@ -318,9 +318,8 @@
 ** Canvas HTML
 *** Canvas HTML \\ Description
 	 Élément <canvas> :
-	 - Permet de dessiner et d'animer librement sur une page web
+	 - Dessin et animation sur une page web
 	 - Contextes 2d et 3d (WebGL)
-	 - API stable
 	 - Implémenté dans les navigateurs majeurs
 
 	 Alternative aux SVG plus performante :
@@ -329,11 +328,9 @@
 	 - Accélération matérielle possible
 
 *** Canvas HTML \\ Utilisation
-	 Documentation: http://developer.mozilla.org/en/HTML/Canvas
-	 #+Latex: \vfill
 
 	 #+begin_latex
-      \begin{block}{Élément HTML}
+      \begin{block}{HTML}
       \lstinputlisting[language=html, firstline=9, lastline=11]{examples/canvas.html}
       \end{block}
 	 #+end_latex
@@ -344,7 +341,29 @@
       \end{block}
 	 #+end_latex
 
-*** Canvas HTML \\ Exemple
+*** Canvas HTML \\ Exemple 1
+
+	 #+begin_latex
+    \begin{block}{Remplissage de zone}
+    \lstinputlisting[language=html, firstline=8, lastline=9]{examples/canvas2.html}
+    \end{block}
+
+    \begin{block}{Contour de zone}
+    \lstinputlisting[language=js, firstline=11, lastline=12]{examples/canvas2.js}
+    \end{block}
+
+    \begin{block}{Tracé}
+    \lstinputlisting[language=js, firstline=14, lastline=20]{examples/canvas2.js}
+    \end{block}
+
+	 \vfill
+
+    \begin{center}
+    \includegraphics[width=\textwidth]{img/canvas-ex2.png}
+    \end{center}
+	 #+end_latex
+
+*** Canvas HTML \\ Exemple 2
     #+Begin_latex
 	 \begin{columns}
 	 \begin{column}{0.51\textwidth}
@@ -366,6 +385,9 @@
 
 * Exercice
 ** Présentation
+	image ?
+	démo
+
 ** Couleurs
 *** Couleurs \\ Modèle HSL
     #+begin_latex
@@ -391,7 +413,7 @@
 
 	 Dans notre application :
 	 - Chaque client a une teinte différente
-	 - On fixe la saturation et la luminance
+	 - Saturation et luminance fixée
 
 *** Couleurs \\ Synchronisation
     #+begin_latex
@@ -402,11 +424,11 @@
     Données serveur :
     #+Latex: \codeinput{js}{examples/donnees_serveur.js}{}
 
-	 Connexion d'un client :
-	 - Choisit une teinte aléatoire et broadcast
+	 Connexion :
+	 - Attribution d'une teinte et broadcast
 
-	 Déconnexion d'un client :
-	 - Supprime la teinte et broadcast
+	 Déconnexion :
+	 - Suppression de la teinte et broadcast
 
 	 #+begin_latex
 	 \end{column}
@@ -416,11 +438,11 @@
 	 Données client :
     #+Latex: \codeinput{js}{examples/donnees_client.js}{}
 
-	 Connexion d'un client :
-	 - Enregistre le nouvel utilisateur et sa teinte
+	 Connexion :
+	 - Réception et enregistrement de la teinte
 
-    Déconnexion d'un client :
-	 - Supprime la teinte locale
+    Déconnexion :
+	 - Suppression des données liées aux clients
 
 	 #+begin_latex
 	 \end{column}
@@ -436,18 +458,16 @@
 	 \end{center}
 	 #+end_latex
 
-	 Comment communiquer le tracé d'une ligne ?
-	 - Une ligne = un ensemble de petits segments
-	 - Plus les segments sont petits, plus la ligne est fluide
-	 - Certains réglages du canvas (lineCap, lineJoin) permettent
-      d'adoucir les traits
-	 - On transmet les segments un à un
+	 Comment communiquer un tracé ?
+	 - Un tracé = plusieurs segments
+	 - Une propriété du canvas (\code{lineCap}) permet d'adoucir les traits
+    - On transmet en continu le dernier segment tracé par la souris
 
 *** Tracé \\ Synchronisation
 	 Un client local :
 	 - Surveille les évènements \code{mousedown} et \code{mouseup}
-	 - Enregistre la position du curseur à chaque \code{mousemove}
-	 - (Position précédente, position actuelle) = segment
+	 - Enregistre la position $p$ du curseur à chaque \code{mousemove}
+	 - ($p_{t-1}$, $p_{t}$) = segment
 	 - Dessine le segment sur le canvas
 	 - Transmet le segment au serveur
 
@@ -456,7 +476,16 @@
 
 	 Un client distant :
 	 - Reçoit le segment et l'identifiant du dessinateur
-	 - Détermine la teinte du segment en fonction du dessinateur
-	 - Dessine le segment sur le canvas
+	 - Détermine la teinte du segment
+	 - Dessine le segment sur son canvas
 
 *** Ressources et documentation
+
+	 Canvas :
+	 - http://developer.mozilla.org/en/HTML/Canvas
+    - http://developer.mozilla.org/en/Canvas_tutorial
+	 - http://dev.opera.com/articles/view/html-5-canvas-the-basics/
+
+	 Socket.IO
+	 - http://socket.io
+	 - https://github.com/learnboost/socket.io/wiki/
