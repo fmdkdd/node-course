@@ -188,6 +188,9 @@
 	 #+Latex: \vfill
 	 #+Latex: \codeinput{bash}{examples/bench-http-server.sh}{}
 
+*** Node \\ Exemples
+	 #+Latex: \codeinput{js}{examples/node-chat.js}{Serveur chat TCP}
+
 ** Express
 *** Express \\ Description
 	 http://expressjs.com/
