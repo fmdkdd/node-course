@@ -367,96 +367,96 @@
 * Exercice
 ** Présentation
 ** Couleurs
-*** Couleurs \\ HSL
-    #+Begin_latex
+*** Couleurs \\ Modèle HSL
+    #+begin_latex
 	 \begin{columns}
-	 \begin{column}{0.51\textwidth}
-    \includegraphics[width=6cm]{img/hsl.jpg}
+	 \begin{column}{0.5\textwidth}
+    \begin{center}
+	 \includegraphics[width=4cm]{img/hsl.jpg}
+    \end{center}
 	 \end{column}
 
     \begin{column}{0.5\textwidth}
-	 \begin{block}{HSL}
-	 - /H/ue (0 <= H < 360)
-	 - /S/aturation (%)
-	 - /L/uminance (%)
-	 \end{block}
+	 #+end_latex
+	 HSL :
+	 - \alert{H}ue (0 <= H < 360)
+	 - \alert{S}aturation (%)
+	 - \alert{L}uminance (%)
+	 #+begin_latex
     \end{column}
     \end{columns}
+    #+end_latex
 
-	 \vfill
+	 #+Latex: \vfill
 
-	 \begin{block}{Dans notre application}
-	 - Chaque client a une teinte différente,
-	 - On fixe la saturation et la luminance.
-	 \end{block}
-	 #+End_latex
+	 Dans notre application :
+	 - Chaque client a une teinte différente
+	 - On fixe la saturation et la luminance
 
 *** Couleurs \\ Synchronisation
-    #+Begin_latex
-	 \begin{columns}
-	 \begin{column}{0.51\textwidth}
-	 \begin{block}{Côté serveur}
-    \lstinputlisting[language=javascript]{examples/donnees_serveur.html}
-	 \end{block}
+    #+begin_latex
+	 \begin{columns}[t]
+	 \begin{column}{0.5\textwidth}
+	 #+end_latex
+
+    Données serveur :
+    #+Latex: \codeinput{js}{examples/donnees_serveur.js}{}
+
+	 Connexion d'un client :
+	 - Choisit une teinte aléatoire et broadcast
+
+	 Déconnexion d'un client :
+	 - Supprime la teinte et broadcast
+
+	 #+begin_latex
 	 \end{column}
-
     \begin{column}{0.5\textwidth}
-	 \begin{block}{Côté client}
-    \lstinputlisting[language=javascript]{examples/donnees_client.html}
-	 \end{block}
-    \end{column}
-    \end{columns}
+	 #+end_latex
 
-	 \vfill
+	 Données client :
+    #+Latex: \codeinput{js}{examples/donnees_client.js}{}
 
-    \begin{block}{Connexion d'un nouveau client}
-	 - Le serveur choisit aléatoirement une teinte et la broadcast à tous
-      ses clients,
-	 - Les clients enregistrent ce nouvel utilisateur et sa teinte.
-    \end{block}
+	 Connexion d'un client :
+	 - Enregistre le nouvel utilisateur et sa teinte
 
-    \begin{block}{Déconnexion d'un client}
-	 - Le serveur supprime la teinte et avertit ses clients.
-	 - Les clients suppriment localement la teinte.
-    \end{block}
+    Déconnexion d'un client :
+	 - Supprime la teinte locale
+
+	 #+begin_latex
+	 \end{column}
+	 \end{columns}
 	 #+end_latex
 
 ** Tracé
 *** Tracé \\ Segment par segment
-    #+Begin_latex
-    \includegraphics[width=6cm]{img/line.png}
-    \includegraphics[width=6cm]{img/line2.png}
+    #+begin_latex
+	 \begin{center}
+    \includegraphics[width=5cm]{img/line.png}
+    \includegraphics[width=5cm]{img/line2.png}
+	 \end{center}
+	 #+end_latex
 
-	 \begin{block}{Comment communiquer le tracé d'une ligne ?}
-	 - Une ligne = un ensemble de petits segments,
-	 - Plus les segments sont petits, plus la ligne est fluide,
+	 Comment communiquer le tracé d'une ligne ?
+	 - Une ligne = un ensemble de petits segments
+	 - Plus les segments sont petits, plus la ligne est fluide
 	 - Certains réglages du canvas (lineCap, lineJoin) permettent
-      d'adoucir les traits,
-	 - On transmet les segments un à un.
-	 \end{block}
-	 #+End_latex
+      d'adoucir les traits
+	 - On transmet les segments un à un
 
 *** Tracé \\ Synchronisation
-    #+Begin_latex
-	 \begin{block}{Côté client local}
-	 - Surveille le clic et les déplacements de la souris,
-	 - A chaque événement *mousemove*, enregistrement de la position du curseur,
-	 - Position précédente -> position actuelle = segment,
-	 - Dessin sur le canvas local,
-	 - Transmission des deux positions au serveur.
-	 \end{block}
+	 Un client local :
+	 - Surveille les évènements \code{mousedown} et \code{mouseup}
+	 - Enregistre la position du curseur à chaque \code{mousemove}
+	 - (Position précédente, position actuelle) = segment
+	 - Dessine le segment sur le canvas
+	 - Transmet le segment au serveur
 
-	 \begin{block}{Côté serveur}
-	 - Broadcast des positions à tous les autres clients.
-	 \end{block}
+	 Le serveur :
+	 - Broadcast le segment à tous les autres clients
 
-	 \begin{block}{Côté client distant}
-	 - Reçoit les deux extrémités du segment et l'identifiant du
-    dessinateur,
-	 - Détermine la teinte du trait en fonction des données
-    enregistrées plus tôt,
-	 - Dessin sur le cancas.
-	 \end{block}
-	 #+End_latex
+	 Un client distant :
+	 - Reçoit le segment et l'identifiant du dessinateur
+	 - Détermine la teinte du segment en fonction du dessinateur
+	 - Dessine le segment sur le canvas
 
 *** Ressources et documentation
