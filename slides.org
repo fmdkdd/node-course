@@ -51,7 +51,7 @@
 #+Latex_Header: \setbeamercolor{block title}{fg=Grue, bg=Backdrop!105}
 #+Latex_Header: \setbeamercolor{block body}{fg=Foreground, bg=Backdrop!95}
 
-#+Latex_Header: \setbeamercolor{button}{fg=Lime}
+#+Latex_Header: \setbeamercolor{button}{fg=Foreground, bg=Lime}
 #+Latex_Header: \setbeamerfont{button}{size=\normal}
 #+Latex_Header: \renewcommand{\insertgotosymbol}{$\blacktriangleright$  }
 
@@ -81,6 +81,9 @@
 
 ## Make fragile frame when using lstlisting environment.
 #+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\|verbatim\\)}"
+
+## Graphics
+#+Latex_Header: \usepackage{tikz}
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Begin document
@@ -344,49 +347,67 @@
 *** Canvas HTML \\ Exemple 1
 
 	 #+begin_latex
-    \begin{block}{Remplissage de zone}
-    \lstinputlisting[language=html, firstline=8, lastline=9]{examples/canvas2.html}
-    \end{block}
+      \begin{columns}
+      \begin{column}{0.5\textwidth}
+      \begin{block}{Remplissage de zone}
+      \lstinputlisting[language=js, firstline=8, lastline=9,
+        xleftmargin=-5pt,
+        basicstyle=\ttfamily\scriptsize]{examples/canvas2.js}
+      \end{block}
 
-    \begin{block}{Contour de zone}
-    \lstinputlisting[language=js, firstline=11, lastline=12]{examples/canvas2.js}
-    \end{block}
+      \begin{block}{Contour de zone}
+        \lstinputlisting[language=js, firstline=11, lastline=12,
+        xleftmargin=-5pt,
+        basicstyle=\ttfamily\scriptsize]{examples/canvas2.js}
+      \end{block}
 
-    \begin{block}{Tracé}
-    \lstinputlisting[language=js, firstline=14, lastline=20]{examples/canvas2.js}
-    \end{block}
+      \begin{block}{Tracé}
+        \lstinputlisting[language=js, firstline=14, lastline=20,
+        xleftmargin=-5pt,
+        basicstyle=\ttfamily\scriptsize]{examples/canvas2.js}
+      \end{block}
+      \end{column}
 
-	 \vfill
+      \begin{column}{0.5\textwidth}
 
-    \begin{center}
-    \includegraphics[width=\textwidth]{img/canvas-ex2.png}
-    \end{center}
+      \begin{center}
+      \includegraphics[angle=-90, width=2.25cm]{img/canvas-ex2.png}
+      \end{center}
+      \end{column}
+      \end{columns}
 	 #+end_latex
 
 *** Canvas HTML \\ Exemple 2
     #+Begin_latex
-	 \begin{columns}
-	 \begin{column}{0.51\textwidth}
-	 \lstset{basicstyle=\ttfamily\scriptsize}
-	 \begin{block}{}
-	 \lstinputlisting[language=js, firstline=4, lastline=20, xleftmargin=-5pt]{examples/canvas.js}
-	 \end{block}
-	 \end{column}
+      \begin{columns}
+      \begin{column}{0.51\textwidth}
+      \begin{block}{}
+      \lstinputlisting[language=js, firstline=4, lastline=20,
+        xleftmargin=-5pt,
+        basicstyle=\ttfamily\scriptsize]{examples/canvas.js}
+      \end{block}
+      \end{column}
 
-    \begin{column}{0.5\textwidth}
-    \begin{center}
-    \includegraphics[width=\textwidth]{img/canvas-ex1.png}
-    \end{center}
-    \end{column}
-    \end{columns}
+      \begin{column}{0.5\textwidth}
+      \begin{center}
+      \includegraphics[width=\textwidth]{img/canvas-ex1.png}
+      \end{center}
+      \end{column}
+      \end{columns}
     #+End_latex
 ** WebSocket et Socket.IO
 
 
 * Exercice
 ** Présentation
+*** Démonstration
 	image ?
-	démo
+	#+begin_latex
+     \begin{center}
+     \tikz \node [draw=none, fill=Lime!50!Black, inner sep=1.5mm, rounded corners=2.5mm]
+       {$\blacktriangleright$ \url{http://localhost:8080/}};
+     \end{center}
+	#+end_latex
 
 ** Couleurs
 *** Couleurs \\ Modèle HSL
@@ -451,7 +472,7 @@
 
 ** Tracé
 *** Tracé \\ Segment par segment
-    #+begin_latex
+	 #+begin_latex
 	 \begin{center}
     \includegraphics[width=5cm]{img/line.png}
     \includegraphics[width=5cm]{img/line2.png}
@@ -461,7 +482,7 @@
 	 Comment communiquer un tracé ?
 	 - Un tracé = plusieurs segments
 	 - Une propriété du canvas (\code{lineCap}) permet d'adoucir les traits
-    - On transmet en continu le dernier segment tracé par la souris
+	 - On transmet en continu le dernier segment tracé par la souris
 
 *** Tracé \\ Synchronisation
 	 Un client local :
@@ -483,9 +504,9 @@
 
 	 Canvas :
 	 - http://developer.mozilla.org/en/HTML/Canvas
-    - http://developer.mozilla.org/en/Canvas_tutorial
+	 - http://developer.mozilla.org/en/Canvas_tutorial
 	 - http://dev.opera.com/articles/view/html-5-canvas-the-basics/
 
 	 Socket.IO
 	 - http://socket.io
-	 - https://github.com/learnboost/socket.io/wiki/
+	 - http://github.com/learnboost/socket.io/wiki/
