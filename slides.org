@@ -395,7 +395,9 @@
       \end{column}
       \end{columns}
     #+End_latex
+
 ** WebSocket et Socket.IO
+*** Protocole WebSocket \\ Description
 
 
 * Exercice
@@ -415,7 +417,7 @@
 	 \begin{columns}
 	 \begin{column}{0.5\textwidth}
     \begin{center}
-	 \includegraphics[width=4cm]{img/hsl.jpg}
+	 \includegraphics[width=4cm]{img/hsl.png}
     \end{center}
 	 \end{column}
 
