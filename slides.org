@@ -2,7 +2,7 @@
 #+Title: Node et technologies HTML5
 #+Author: Florent Marchand de Kerchove\\Merwan Achibet
 #+Email: fmdkdd@gmail.com
-#+Date: 9 octobre 2011
+#+Date: 9 novembre 2011
 #+Language: fr
 
 ## Supplementary info.
@@ -91,7 +91,7 @@
 #+Latex_Header:
 #+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\|verbatim\\)}"
 
-## Graphics
+## Graphisc
 #+Latex_Header: \usepackage{tikz}
 
 #+begin_src emacs-lisp :results org :exports none
@@ -151,7 +151,7 @@
 	 #+Latex: \vfill
 
 	 Serveur :
-	 - évenementiel,
+	 - événementiel,
 	 - asynchrone,
 	 - en JavaScript.
 
@@ -163,8 +163,8 @@
 
 	 Similaire à Twisted ou EventMachine
 
-*** Node \\ Serveur évenementiel
-	 Reçoit des évènements et y répond
+*** Node \\ Serveur événementiel
+	 Reçoit des événements et y répond
 	 - Semblable au DOM et à jQuery
 	 - Fortement adapté aux applications réseau
 	 - Approche dynamique
@@ -174,7 +174,7 @@
 *** Node \\ Serveur asynchrone
 	 Approche non-bloquante :
 	 - Entrées/sorties asynchrones (/epoll/, /kqueue/, ...)
-	 - Le processus dort en attendant les évènements
+	 - Le processus dort en attendant les événements
 	 - Aucun /thread/, un seul processus (/fork/ possible)
 	 - Plus simple à programmer
 
@@ -184,20 +184,22 @@
 *** Node \\ Serveur en JavaScript
 	 Utilise le moteur JavaScript V8 de Google (Ecma-262 édition 5)
 
+	 #+Latex: \vfill
+
 	 Avantages du JavaScript côté serveur :
-	 - Adapté au modèle évenementielle
+	 - Adapté au modèle événementielle
 	 - Fonctionnalités asynchrones incluses
 	 - Simplifie les échanges client-serveur
 	 - Partage de code possible
 
 *** Node \\ Installation manuelle
-	 Dépôt officiel : http://github.com/joyent/node/
-
-	 #+Latex: \codeinput{bash}{examples/git-install.sh}{}
-	 #+Latex: \vfill
-
 	 Prérequis:
 	 #+Latex: \codeinput{bash}{examples/git-deps.sh}{}
+
+	 #+Latex: \vfill
+
+	 Dépôt officiel : http://github.com/joyent/node/
+	 #+Latex: \codeinput{bash}{examples/git-install.sh}{}
 
 *** Node \\ Exemple 1
 	 #+Latex: \codeinput{js}{examples/echo-server.js}{Serveur écho}
@@ -269,7 +271,7 @@
 
 	 - Installe et met à jour des modules pour node
 	 - Recherche de modules par description, mots-clés
-	 - Gère les dépendances automagiquement
+	 - Gère les dépendances automatiquement
 	 - Aide au développement de modules
 
 	 #+Latex: \vfill
@@ -479,12 +481,16 @@
 * Exercice
 ** Présentation
 *** Démonstration
-	image ?
 	#+begin_latex
-     \begin{center}
-     \tikz \node [draw=none, fill=Lime!50!black, inner sep=1.5mm, rounded corners=2.5mm]
-       {$\blacktriangleright$ \url{http://\localip:8080/}};
-     \end{center}
+	\begin{center}
+   \includegraphics[width=6cm]{img/node-logo.png}
+   \includegraphics[width=2.5cm]{img/html5-logo.png}
+	\end{center}
+
+   \begin{center}
+   \tikz \node [draw=none, fill=Lime!50!black, inner sep=1.5mm, rounded corners=2.5mm]
+   {$\blacktriangleright$ \url{http://\localip:8080/}};
+   \end{center}
 	#+end_latex
 
 ** Couleurs
@@ -564,7 +570,7 @@
 
 *** Tracé \\ Synchronisation
 	 Un client local :
-	 - Surveille les évènements \code{mousedown} et \code{mouseup}
+	 - Surveille les événements \code{mousedown} et \code{mouseup}
 	 - Enregistre la position $p$ du curseur à chaque \code{mousemove}
 	 - ($p_{t-1}$, $p_{t}$) = segment
 	 - Dessine le segment sur le canvas
@@ -580,7 +586,12 @@
 
 ** À vous
 *** Démarrage
+	 Pour récupérer le squelette du projet :
 	 #+Latex: \codeinput{sh}{examples/exercise-setup.sh}{}
+
+	 #+Latex: \vfill
+
+	 A vous de jouer !
 
 *** Ressources et documentation
 

@@ -3,19 +3,19 @@ window.addEventListener('load', function() {
 	var ctxt = canvas.getContext('2d');
 
 	ctxt.fillStyle = 'hsl(40, 30%, 90%)';
-	ctxt.fillRect(0, 0, 400, 150);
+	ctxt.fillRect(0, 0, 150, 400);
 
 	ctxt.fillStyle = 'red';
 	ctxt.fillRect(25, 25, 100, 100);
 
 	ctxt.strokeStyle = 'green';
-	ctxt.strokeRect(150, 25, 100, 100);
+	ctxt.strokeRect(25, 150, 100, 100);
 
 	ctxt.strokeStyle = 'blue';
 	ctxt.beginPath();
-	ctxt.moveTo(275, 25);
-	ctxt.lineTo(325, 25);
-	ctxt.lineTo(325, 125);
-	ctxt.lineTo(375, 125);
+	ctxt.moveTo(125, 275);
+	ctxt.lineTo(125, 325);
+	ctxt.lineTo(25, 325);
+	ctxt.lineTo(25, 375);
 	ctxt.stroke();
 });
