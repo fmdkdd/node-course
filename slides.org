@@ -44,7 +44,6 @@
 #+Latex_Header: \setbeamerfont{footline}{size=\small}
 
 #+Latex_Header: \setbeamertemplate{items}[circle]
-#+Latex_Header: \setbeamertemplate{itemize subitem}{--}
 #+Latex_Header: \setbeamertemplate{sections/subsections in toc}[circle]
 
 #+Latex_Header: \setbeamertemplate{blocks}[rounded][shadow=true]
@@ -74,16 +73,40 @@
 #+Latex_Header: }
 #+Latex_Header: \lstset{style=node}
 
-#+Latex_Header: \lstdefinelanguage{js}[ANSI]{C}{morekeywords={var, function}}
+#+Latex_Header: \lstdefinelanguage{js}{
+#+Latex_Header: morekeywords={var, function}
+#+Latex_Header: , sensitive=false
+#+Latex_Header: , morecomment=[l]//
+#+Latex_Header: , morecomment=[s]{/*}{*/}
+#+Latex_Header: , morestring=[b]"
+#+Latex_Header: , morestring=[b]'
+#+Latex_Header: }
+#+Latex_Header: \lstdefinelanguage{html-js}[]{js}{morekeywords={script, src}}
 
 #+Latex_Header: \newcommand{\codeinput}[3]{\begin{block}{#3}{\lstinputlisting[language=#1]{#2}}\end{block}}
+#+Latex_Header: \newcommand{\codeinline}[2]{\begin{block}{#1}{\ttfamily#2}\end{block}}
 #+Latex_Header: \newcommand{\code}[1]{\textcolor{Grue}{\lstinline{#1}}}
 
 ## Make fragile frame when using lstlisting environment.
+#+Latex_Header:
 #+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\|verbatim\\)}"
 
 ## Graphics
 #+Latex_Header: \usepackage{tikz}
+
+#+begin_src emacs-lisp :results org :exports none
+  (format "#+Latex_Header: \\newcommand{\\localip}{%s}"
+          (or (format-network-address
+               (or (car (network-interface-info "eth0"))
+                   (car (network-interface-info "wlan0")))
+               t)
+              "localhost"))
+#+end_src
+
+#+results:
+#+BEGIN_ORG
+#+Latex_Header: \newcommand{\localip}{192.168.1.6}
+#+END_ORG
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Begin document
@@ -176,22 +199,24 @@
 	 Prérequis:
 	 #+Latex: \codeinput{bash}{examples/git-deps.sh}{}
 
-*** Node \\ Exemples
+*** Node \\ Exemple 1
 	 #+Latex: \codeinput{js}{examples/echo-server.js}{Serveur écho}
 
-*** Node \\ Exemples
+*** Node \\ Exemple 2
 	 #+Latex: \codeinput{js}{examples/http-server.js}{Serveur HTTP}
 
 	 #+Latex: \vfill
-	 #+Latex: \codeinput{bash}{examples/bench-http-server.sh}{}
 
-*** Node \\ Exemples
+	 #+Latex: \codeinline{}{ab -n 1000 -c 1000 http://\localip:1337/}
+
+*** Node \\ Exemple 3
 	 #+Latex: \codeinput{js}{examples/http-server-blocking.js}{Serveur HTTP bloquant}
 
 	 #+Latex: \vfill
-	 #+Latex: \codeinput{bash}{examples/bench-http-server.sh}{}
 
-*** Node \\ Exemples
+	 #+Latex: \codeinline{}{ab -n 1000 -c 1000 http://\localip:1337/}
+
+*** Node \\ Exemple 4
 	 #+Latex: \codeinput{js}{examples/node-chat.js}{Serveur chat TCP}
 
 ** Express
@@ -208,14 +233,14 @@
 	 - Cache automatique
 	 - etc.
 
-*** Express \\ Exemples
+*** Express \\ Exemple 1
 	 #+Latex: \codeinput{js}{examples/express-create.js}{Création d'un serveur}
 
 	 #+Latex: \vfill
 
-	 #+Latex: \codeinput{bash}{examples/express-create-test.sh}{}
+	 #+Latex: \codeinline{}{curl http://\localip:1337/}
 
-*** Express \\ Exemple
+*** Express \\ Exemple 2
 	 Chemins basés sur des /regexps/
 
 	 #+begin_latex
@@ -226,7 +251,13 @@
 
 	 #+Latex: \vfill
 
-	 #+Latex: \codeinput{bash}{examples/express-routing-test.sh}{}
+	 #+begin_latex
+	 \begin{block}{}
+	 \texttt{curl http://\localip:1337/potion/love}
+	 \\
+	 \texttt{curl http://\localip:1337/spell/fire/meteor}
+	 \end{block}
+	 #+end_latex
 
 ** npm
 *** npm \\ Description
@@ -318,6 +349,55 @@
 	 - \code{`man npm`}
 
 * HTML5
+
+** WebSocket et Socket.IO
+*** Protocole WebSocket \\ Description
+	 Communication bidirectionnelle persistante :
+	 - Réponse du standard aux techniques Comet
+	 - Rend obsolètes HTTP /long-polling/ et HTTP /streaming/
+	 - Véritable /full-duplex/ entre client et serveur HTTP
+	 - Utilise la connexion TCP créée pour une requête HTTP
+
+	 #+Latex: \vfill
+
+	 Communication efficace :
+	 - Idéal pour recevoir des notifications du serveur
+	 - Meilleure solution pour des applications temps-réel (bourse,
+      jeux, ...)
+
+*** Socket.IO \\ Description
+	 Module pour node qui implémente différentes techniques pour une
+	 connexion /full-duplex/ :
+	 - WebSocket
+	 - Flash socket
+	 - HTTP /long-polling/ et /streaming/
+	 - ...
+
+	 Choisit la meilleure méthode supportée par le navigateur
+
+	 #+Latex: \vfill
+
+	 Ajoute des fonctionnalités utiles :
+	 - /Heartbeats/, /timeouts/
+	 - /Namespaces/
+	 - /Acknowledgments/
+
+*** Socket.IO \\ Utilisation
+	 Partie serveur avec Express :
+	 #+begin_latex
+      \begin{block}{}
+      \lstinputlisting[language=js, firstline=1, lastline=11]{examples/socket-io-server.js}
+      \end{block}
+	 #+end_latex
+
+*** Socket.IO \\ Utilisation
+	 Partie client :
+	 #+begin_latex
+    \begin{block}{}
+    \lstinputlisting[language=html-js, firstline=4, lastline=11]{examples/socket-io-client.html}
+    \end{block}
+	 #+end_latex
+
 ** Canvas HTML
 *** Canvas HTML \\ Description
 	 Élément <canvas> :
@@ -396,18 +476,14 @@
       \end{columns}
     #+End_latex
 
-** WebSocket et Socket.IO
-*** Protocole WebSocket \\ Description
-
-
 * Exercice
 ** Présentation
 *** Démonstration
 	image ?
 	#+begin_latex
      \begin{center}
-     \tikz \node [draw=none, fill=Lime!50!Black, inner sep=1.5mm, rounded corners=2.5mm]
-       {$\blacktriangleright$ \url{http://localhost:8080/}};
+     \tikz \node [draw=none, fill=Lime!50!black, inner sep=1.5mm, rounded corners=2.5mm]
+       {$\blacktriangleright$ \url{http://\localip:8080/}};
      \end{center}
 	#+end_latex
 
@@ -501,6 +577,10 @@
 	 - Reçoit le segment et l'identifiant du dessinateur
 	 - Détermine la teinte du segment
 	 - Dessine le segment sur son canvas
+
+** À vous
+*** Démarrage
+	 #+Latex: \codeinput{sh}{examples/exercise-setup.sh}{}
 
 *** Ressources et documentation
 

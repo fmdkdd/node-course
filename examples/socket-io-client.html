@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Socket.IO chat example</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect();
+      socket.send('hi');
+      socket.on('message', function(data) {
+	      console.log(data.from + '> ' + data.msg);
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
