@@ -1,1 +1,1 @@
-sudo apt-get install build-essential git libssl-dev
+sudo apt-get install git libssl-dev
