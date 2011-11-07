@@ -271,7 +271,7 @@
 
 	 - Installe et met à jour des modules pour node
 	 - Recherche de modules par description, mots-clés
-	 - Gère les dépendances automatiquement
+	 - Gère les dépendances automagiquement
 	 - Aide au développement de modules
 
 	 #+Latex: \vfill
@@ -483,8 +483,7 @@
 *** Démonstration
 	#+begin_latex
 	\begin{center}
-   \includegraphics[width=6cm]{img/node-logo.png}
-   \includegraphics[width=2.5cm]{img/html5-logo.png}
+   \includegraphics[width=6cm]{img/multicanvas.png}
 	\end{center}
 
    \begin{center}
