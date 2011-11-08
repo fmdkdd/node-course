@@ -91,7 +91,7 @@
 #+Latex_Header:
 #+Bind: org-beamer-fragile-re "^[ \t]*\\\\begin{\\(lstlisting\\|verbatim\\)}"
 
-## Graphisc
+## Graphics
 #+Latex_Header: \usepackage{tikz}
 
 #+begin_src emacs-lisp :results org :exports none
@@ -105,7 +105,7 @@
 
 #+results:
 #+BEGIN_ORG
-#+Latex_Header: \newcommand{\localip}{192.168.1.6}
+#+Latex_Header: \newcommand{\localip}{172.16.21.189}
 #+END_ORG
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -134,7 +134,8 @@
   \begin{center}
     \includegraphics[width=6cm]{img/node-logo.png}
     \includegraphics[width=2.5cm]{img/html5-logo.png}
-  \end{center}
+\end{center}
+
 \end{frame}
 #+END_latex
 
@@ -178,11 +179,13 @@
 	 - Aucun /thread/, un seul processus (/fork/ possible)
 	 - Plus simple à programmer
 
+	#+Latex: \vfill
+
 	 Inconvénient :
 	 - Éviter les appels bloquants trop longs
 
 *** Node \\ Serveur en JavaScript
-	 Utilise le moteur JavaScript V8 de Google (Ecma-262 édition 5)
+	 Utilise le moteur JavaScript V8 de Google
 
 	 #+Latex: \vfill
 
@@ -220,6 +223,10 @@
 
 *** Node \\ Exemple 4
 	 #+Latex: \codeinput{js}{examples/node-chat.js}{Serveur chat TCP}
+
+	 #+Latex: \vfill
+
+	 #+Latex: \codeinline{}{nc \localip 1337}
 
 ** Express
 *** Express \\ Description
