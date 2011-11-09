@@ -1,1 +1,1 @@
-curl http://npmjs.org/install.sh | sh
+wget http://npmjs.org/install.sh && sudo sh install.sh
