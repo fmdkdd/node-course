@@ -226,7 +226,7 @@
 
 	 #+Latex: \vfill
 
-	 #+Latex: \codeinline{}{nc \localip 1337}
+	 #+Latex: \codeinline{}{nc \localip{} 1337}
 
 ** Express
 *** Express \\ Description
