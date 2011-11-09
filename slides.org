@@ -526,40 +526,6 @@
 	 - Chaque client a une teinte différente
 	 - Saturation et luminance fixée
 
-*** Couleurs \\ Synchronisation
-    #+begin_latex
-	 \begin{columns}[t]
-	 \begin{column}{0.5\textwidth}
-	 #+end_latex
-
-    Données serveur :
-    #+Latex: \codeinput{js}{examples/donnees_serveur.js}{}
-
-	 Connexion :
-	 - Attribution d'une teinte et broadcast
-
-	 Déconnexion :
-	 - Suppression de la teinte et broadcast
-
-	 #+begin_latex
-	 \end{column}
-    \begin{column}{0.5\textwidth}
-	 #+end_latex
-
-	 Données client :
-    #+Latex: \codeinput{js}{examples/donnees_client.js}{}
-
-	 Connexion :
-	 - Réception et enregistrement de la teinte
-
-    Déconnexion :
-	 - Suppression des données liées aux clients
-
-	 #+begin_latex
-	 \end{column}
-	 \end{columns}
-	 #+end_latex
-
 ** Tracé
 *** Tracé \\ Segment par segment
 	 #+begin_latex
@@ -580,14 +546,13 @@
 	 - Enregistre la position $p$ du curseur à chaque \code{mousemove}
 	 - ($p_{t-1}$, $p_{t}$) = segment
 	 - Dessine le segment sur le canvas
-	 - Transmet le segment au serveur
+	 - Transmet le segment et sa teinte au serveur
 
 	 Le serveur :
 	 - Broadcast le segment à tous les autres clients
 
 	 Un client distant :
-	 - Reçoit le segment et l'identifiant du dessinateur
-	 - Détermine la teinte du segment
+	 - Reçoit le segment et sa teinte
 	 - Dessine le segment sur son canvas
 
 ** À vous
